@@ -11,6 +11,11 @@ const movieSchema = new mongoose.Schema(
         actor: {
             type: String,
             required: true
+        },
+
+        year: {
+            type: Number,
+            required: false
         }
     }
 )
