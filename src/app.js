@@ -7,13 +7,12 @@ const {
   listMovies,
 } = require("./utils/index.js");
 const fs = require("fs");
-
 const connection = require("./db/connection");
 
+//using hideBin to make order of user input flexible
 const argv = yargs(hideBin(process.argv)).argv;
-console.log(argv);
 
-const app = async (args) => {
+const app = async () => {
   try {
     //check third word for "add"
     if (argv.add) {
@@ -23,14 +22,19 @@ const app = async (args) => {
         actor: argv.actor,
         year: argv.year,
       });
-      console.log(`New movie: ${movie}`);
+      console.log(`New movie added`);
     } else if (argv.delete) {
-      //use addMovie to update array with object from yargs and write to storage.json
-
+      //if one of the argvs is delete, use deleteOne() to find and delete
       deleteMovies({ title: argv.title });
+      console.log("Movie deleted");
     } else if (argv.list) {
-      //use addMovie to update array with object from yargs and write to storage.json
+      //list all collection
+      console.log("Here's your list");
       listMovies();
+    } else if (argv.edit) {
+      //if edit, use title to find and update to --update value
+      editMovie(argv.title, argv.update);
+      console.log("Movie updated");
     }
 
     // else if (command === "delete")

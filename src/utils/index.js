@@ -11,11 +11,21 @@ const addMovie = async (movieObj) => {
   }
 };
 
-const editMovie = async () => {};
+const editMovie = async (userQuery, userUpdate) => {
+  try {
+    await Movie.findOneAndUpdate({ title: userQuery }, { title: userUpdate });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 const listMovies = async () => {
-  let list = await Movie.find({});
-  console.log(list);
+  try {
+    let list = await Movie.find({});
+    console.log("Here's your collection: ", list);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const deleteMovies = async (queryObj) => {
